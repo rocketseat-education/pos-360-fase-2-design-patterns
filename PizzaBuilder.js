@@ -2,6 +2,10 @@ const Pizza = require("./Pizza")
 
 class PizzaBuilder {
   constructor() {
+    this.reset()
+  }
+
+  reset() {
     this.size = "média"
     this.crust = "tradicional"
     this.cheese = false
@@ -29,7 +33,9 @@ class PizzaBuilder {
   }
 
   build() {
-    return new Pizza(this.size, this.crust, this.cheese, this.toppings)
+    const pizza = new Pizza(this.size, this.crust, this.cheese, this.toppings)
+    this.reset()
+    return pizza
   }
 }
 

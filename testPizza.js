@@ -1,16 +1,12 @@
 const PizzaBuilder = require("./PizzaBuilder")
+const PizzaDirector = require("./PizzaDirector")
 
-const margherita = new PizzaBuilder()
-  .setSize("grande")
-  .setCrust("fina")
-  .addCheese()
-  .addTopping("tomate")
-  .addTopping("manjericão")
-  .build()
+const builder = new PizzaBuilder()
+const director = new PizzaDirector(builder)
 
-const pepperoni = new PizzaBuilder()
-  .addTopping("pepperoni")
-  .build()
+const margherita = director.makeMargherita()
+
+const pepperoni = director.makePepperoni()
 
 console.log(margherita)
 console.log(pepperoni)
