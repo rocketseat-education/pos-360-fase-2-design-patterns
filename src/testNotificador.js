@@ -1,23 +1,14 @@
-class Notificador {
-  enviar(mensagem) {
-    console.log(`Enviando mensagem por email: ${mensagem}`);
-  }
-}
+const Notificador = require('./Notificador');
+const NotificadorDecorator = require('./NotificadorDecorator');
+const SMS = require('./SMSDecorator');
+const Slack = require('./SlackDecorator');
 
-class NotificadorSMS extends Notificador {
-  enviar(mensagem) {
-    super.enviar(mensagem)
-    console.log(`Enviando mensagem por SMS: ${mensagem}`);
-  }
-}
+const notificadorBase = new Notificador();
 
-class NotificadorSlack extends Notificador {
-  enviar(mensagem) {
-    super.enviar(mensagem)
-    console.log(`Enviando mensagem por Slack: ${mensagem}`);
-  }
-}
+const notificadorSMS = new SMS(notificadorBase)
 
-const notificador = new NotificadorSMS();
+const notificadorSlack = new Slack(notificadorSMS)
 
-notificador.enviar("Sistema em manutenção!")
+const notificadorSlack2 = new Slack(notificadorSlack)
+
+notificadorSlack2.enviar('Sistema em manutenção!')
