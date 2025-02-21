@@ -1,20 +1,19 @@
-class Navegador {
-  calcularRota(tipo, origem, destino) {
-    if (tipo === 'carro') {
-      console.log(`Calculando rota de carro de ${origem} até ${destino}.`);
-    } else if (tipo === 'caminhada') {
-      console.log(`Calculando rota de caminhada de ${origem} até ${destino}.`);
-    } else if (tipo === 'transportePublico') {
-      console.log(`Calculando rota de transporte público de ${origem} até ${destino}.`);
-    } else {
-      console.log('Tipo de rota é desconhecido.');
-    }
-  }
-}
+const Navegador = require('./models/Navegador');
+const RotaCarro = require('./models/RotaCarro');
+const RotaTransportePublico = require('./models/RotaTransportePublico');
+const RotaCaminhada = require('./models/RotaCaminhada');
+const RotaNavio = require("./models/RotaNavio");
 
 const navegador = new Navegador();
 
-navegador.calcularRota('carro', 'Universidade', 'Aeroporto');
-navegador.calcularRota('caminhada', 'Universidade', 'Aeroporto');
-navegador.calcularRota('transportePublico', 'Shopping Center', 'Casa');
-navegador.calcularRota('navio', 'Rio de Janeiro', 'Santos');
+navegador.setEstrategia(new RotaCarro());
+navegador.calcularRota("Casa", "Aeroporto");
+
+navegador.setEstrategia(new RotaTransportePublico());
+navegador.calcularRota("Aeroporto", "Shopping Center");
+
+navegador.setEstrategia(new RotaCaminhada());
+navegador.calcularRota("Shopping Center", "Casa");
+
+navegador.setEstrategia(new RotaNavio());
+navegador.calcularRota("Rio de Janeiro", "Santos");
